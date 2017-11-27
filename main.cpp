@@ -1,8 +1,6 @@
 #include "dismantler.h"
 #include "d_exc.h"
 
-using namespace std;
-
 int main() {
     try {
         dismatler d1;

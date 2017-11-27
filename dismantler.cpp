@@ -1,5 +1,4 @@
 #include "dismantler.h"
-#include<typeinfo>
 #include "d_exc.h"
 
 void dismatler::dism( uint64_t inp ) {
@@ -19,28 +18,33 @@ void dismatler::dism( uint64_t inp ) {
     data [ i ] = count_;
 }
 
-void dismatler::d_print() {
+void dismatler::generate_str() {
+    str_print.clear();
     if ( data.empty() ) {
         throw Data_Error( "Data is empty" );
-    };
-    str_print = "1";
+    }
     for ( const auto & it : data ) {
         if ( it.second != 0 ) {
             str_print += " * ";
             str_print += patch::to_string( it.first );
             if ( it.second != 1) {
-                str_print += " ^";
+                str_print += "^";
                 str_print += patch::to_string( it.second );
             }
         }
     }
+    str_print.erase(0,3);
+}
+
+void dismatler::d_print() {
+    generate_str();
     std::cout << str_print << std::endl;
 }
 
 void dismatler::un_dism() {
     if ( data.empty() ) {
         throw Data_Error( "Data is empty" );
-    };
+    }
     return_ = 1;
     for ( const auto & it : data ) {
         if ( it.second != 0 ) {
@@ -67,7 +71,7 @@ void dismatler::init_file() {
     if ( !file.is_open()) {
         file.close();
         throw Io_Error( "File is not opened" );
-    };
+    }
     std::ofstream fout;
     fout.open( file_name_o, std::ofstream::app );
     while( file.good() ) {
@@ -76,10 +80,10 @@ void dismatler::init_file() {
         std::istringstream stream ( str );
         stream >> inp;
         dism( inp );
-        d_print();
+        generate_str();
         fout << str_print << std::endl;
-        };
-    };
+        }
+    }
     file.close();
     fout.close();
 }

@@ -1,11 +1,10 @@
 #ifndef DISMANTLER_H_INCLUDED
 #define DISMANTLER_H_INCLUDED
+
 #include<map>
 #include<iostream>
 #include<fstream>
-#include<string>
 #include<sstream>
-#include<bitset>
 
 class dismatler {
 public:
@@ -15,6 +14,7 @@ public:
     void un_print();
     void get_files_name();
     void init_file();
+    void generate_str();
 private:
     std::map< uint64_t, uint64_t > data;
     uint64_t return_;
